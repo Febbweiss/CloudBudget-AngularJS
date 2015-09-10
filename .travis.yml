@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- '0.12'
+env:
+  global:
+    secure: G2F3So5W3+ieJxP7+wpWO+MLCrXd7E3TL/qmvRIuASV9SEgJp76Qe5gBuu6QkVkMQaYZqOJTd9MW96Pm2NABqfE2xaojv3za4n/IqeyHpjSi9/Sg3PAABLqQ2/izpBYWcxtiZxtElLhSksGr9qDcj9OnIodogvNiXacaS9YKWwHF2eBO+Z3xQYfjh+jGrY2/gW6TzY+3BVOWoOspUrKNuWT74lxoz+smxVygYtzb5tGINvswj9gpZOCrvDms/E40ksm0mOSFAmNbK6/RasiKncqrd2dB0sgF0/LvoyDYJv6ozpDMkOfG5GVIuoc6DiK3txejlIW6HWyOxzzMItDk5pVIqSAoCAgSzjsti/kvIcy7mfSrZwEAyrqBrzCMs9rxXvNyX1k4etykqwCkA0dpbed2NgNnaUyMlpcObkiodt8xGIzddErLKemCVBhmFi1NxCe6vCOiArsMtqrkJkccDeVILTyKNo/vVCzO3vBLbmvUkbyucJRxD5J9plgleZVtOm6yE4Lm6343zvp7aVBcZZGGmZwf34vS/sJ5mfmxpm7h30SkUB8hHezXPPa6HTlOPeVaatw/QodX1KyNtHB1n4BxOMHjUZcIDHdcRwNS/K4/5Fv+VvFdnSve+AWTiEMC4Ux6SixuNaHtg5syW/JVVVhcRPqyuxSpGI+oupvXAxg=
+before_script:
+  - npm install -g bower
+  - bower install
+after_success:
+  - 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
+  - 'curl "http://technical.viadeo-playground.com/deploy/update?secret_key=$PASSWORD&site=cloudbudget-angularjs"'

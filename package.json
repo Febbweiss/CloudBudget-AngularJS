@@ -1,0 +1,35 @@
+{
+  "name": "cloudbudget-angularjs",
+  "version": "1.0.0-SNAPSHOT",
+  "description": "An AngularJS client for CloudBudget",
+  "main": "server.js",
+  "repository": "",
+  "author": "Febbweiss",
+  "dependencies": {
+    "express": "~3.2.4",
+    "bower": "~1.5.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.18",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.9",
+    "karma-chai": "^0.1.0",
+    "karma-coveralls": "^1.1.2",
+    "karma-jasmine": "^0.3.6",
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "~2.2.5",
+    "phantomjs": "^1.9.18",
+    "should": "~7.0.2",
+    "sinon": "~1.15.4"
+  },
+  "scripts": {
+    "test-local": "karma start karma.conf.js --browsers PhantomJS",
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --browsers PhantomJS",
+    "start": "server.js",
+    "stop": "pkill -SIGINT CloudBudget-AngularJS"
+  },
+  "license": "MIT"
+}
