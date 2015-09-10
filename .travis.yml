@@ -3,10 +3,10 @@ node_js:
 - '0.12'
 env:
   global:
-    secure: G2F3So5W3+ieJxP7+wpWO+MLCrXd7E3TL/qmvRIuASV9SEgJp76Qe5gBuu6QkVkMQaYZqOJTd9MW96Pm2NABqfE2xaojv3za4n/IqeyHpjSi9/Sg3PAABLqQ2/izpBYWcxtiZxtElLhSksGr9qDcj9OnIodogvNiXacaS9YKWwHF2eBO+Z3xQYfjh+jGrY2/gW6TzY+3BVOWoOspUrKNuWT74lxoz+smxVygYtzb5tGINvswj9gpZOCrvDms/E40ksm0mOSFAmNbK6/RasiKncqrd2dB0sgF0/LvoyDYJv6ozpDMkOfG5GVIuoc6DiK3txejlIW6HWyOxzzMItDk5pVIqSAoCAgSzjsti/kvIcy7mfSrZwEAyrqBrzCMs9rxXvNyX1k4etykqwCkA0dpbed2NgNnaUyMlpcObkiodt8xGIzddErLKemCVBhmFi1NxCe6vCOiArsMtqrkJkccDeVILTyKNo/vVCzO3vBLbmvUkbyucJRxD5J9plgleZVtOm6yE4Lm6343zvp7aVBcZZGGmZwf34vS/sJ5mfmxpm7h30SkUB8hHezXPPa6HTlOPeVaatw/QodX1KyNtHB1n4BxOMHjUZcIDHdcRwNS/K4/5Fv+VvFdnSve+AWTiEMC4Ux6SixuNaHtg5syW/JVVVhcRPqyuxSpGI+oupvXAxg=
+    secure: "cFJZm9sNr/dNqG4ZA2wqt2FefO4nZs7S0yst4rLfwio9lJX314pz+fzbl/v/S+j+t/2aniGMmVBCusfoV2jEDam0s4tmDEX+tGQp5hFpA1hnTRnscPGRuvio9/Wm3AQ/5HViVQlc3dnjYUhOwd6s2UthvpjTU5op5lKi++4di/eD0mbcVlleOcmP5syPioQEvrYYncUHG4++WzyQzTX3zPeHqOeTFFr1+TeRmjPzg8m8jDjLOWwdT1qu8MloFnY7wAuokrjL9T1Scv3IVmutKJvODT4yLMQLDHtfcE5juz0EGhlKOgYVUrqGZ0azAQLDYryQdsG3ohnk44u5VY67dmI89ItDtkzty/kk/N+B9J5dGe2oGmUr4XSP16HflntC2NNB4b6L/veOVfgqecmqrp9gDK277gcqsNTSFcqAYKS+2TEsrrvpmAzg3JvTtz+wEP+ehVTmAccTKKca0D88pTwSkwovzRajw1WzDO9Ys0hZHuWIaVBZdP1cGN6EcuqChO6RavXNfPTzsfjJmHs4I++d7AX/uVESdDZzDZ72VmXZB+AfBfAU/HYpcuEJ+HqVnGgQ9r6ZcTahyCk0I1l2w9x5y17p1XaKCwZV/YTHeIl67xv7uQ9FXap9JNDIteuUlIRF7QUEeHctNzEs4oZPi7eXcCWXTgpNL0CwRJ03B2M="
 before_script:
   - npm install -g bower
   - bower install
 after_success:
   - 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
-  - 'curl "http://technical.viadeo-playground.com/deploy/update?secret_key=$PASSWORD&site=cloudbudget-angularjs"'
+  - 'curl "http://technical.viadeo-playground.com/deploy/update?secret_key=$PASSWORD&site=cloudbudget_angularjs"'
