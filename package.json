@@ -3,7 +3,13 @@
   "version": "1.0.0-SNAPSHOT",
   "description": "An AngularJS client for CloudBudget",
   "main": "server.js",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Febbweiss/CloudBudget-AngularJS"
+  },
+  "bugs": {
+    "url": "https://github.com/Febbweiss/CloudBudget-AngularJS/issues"
+  },
   "author": "Febbweiss",
   "dependencies": {
     "express": "~3.2.4",
@@ -16,6 +22,7 @@
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.9",
     "karma-chai": "^0.1.0",
+    "karma-coverage": "^0.5.2",
     "karma-coveralls": "^1.1.2",
     "karma-jasmine": "^0.3.6",
     "karma-mocha": "^0.2.0",
