@@ -28,7 +28,7 @@
   "scripts": {
     "test-local": "karma start karma.conf.js --browsers PhantomJS",
     "test": "./node_modules/karma/bin/karma start karma.conf.js --browsers PhantomJS",
-    "start": "server.js",
+    "start": "node server.js",
     "stop": "pkill -SIGINT CloudBudget-AngularJS"
   },
   "license": "MIT"
