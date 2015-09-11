@@ -21,7 +21,7 @@ module.exports = function(config) {
       'public/libs/angular-mocks/angular-mocks.js',
       'public/js/**/*.js',
       'public/**/*.controller.js',
-      'test/**/*.controller.js'
+      'test/**/*.spec.js'
     ],
 
 
@@ -29,21 +29,25 @@ module.exports = function(config) {
     exclude: [
     ],
 
+    plugins: ['karma-jasmine', 'karma-mocha', 'karma-chai', 'karma-phantomjs-launcher', 'karma-coverage'],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'public/js/**/*.js': ['coverage'],
+      'public/**/*.controller.js': ['coverage'],
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage', 'coveralls'],
+    reporters: ['progress', 'coverage'],
     
     coverageReporter: {
       type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
-      dir: 'coverage/'
+      dir: 'coverage',
+      subdir: '.' // Output the results into ./coverage/
     },
 
     // web server port
