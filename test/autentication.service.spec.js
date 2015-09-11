@@ -22,6 +22,7 @@ describe('AuthenticationService', function() {
     		    data.success.should.be.true;
     		    
     		    var user = data.user;
+    		    httpBackend.flush();
     		    should.exist(user);
     		    user.username.should.be.equal('test');
     		    user.token.should.be.equal('tok3n');
@@ -33,12 +34,13 @@ describe('AuthenticationService', function() {
         it('should fail to login and return message', function() {
             httpBackend
                 .when('POST', 'api/users/login')
-                .respond(401);
+                .respond(401, {message: 'Authentication failed'});
                 
             AuthenticationService.login('test', 'password', function(data) {
                 data.succes.should.be.false;
                 
                 var message = data.message;
+                httpBackend.flush();
                 should.exist(message);
                 message.should.be.equal('Authentication fail');
                 
