@@ -6,6 +6,16 @@ var express = require('express');
 var router = express();
 var server = http.createServer(router);
 
+router.get('*', function(req, res, next) {
+  var dotIndex = req.path.lastIndexOf('.'),
+      extension = dotIndex === - 1 ? '' : req.path.substr(dotIndex);
+      
+      if( ['.js','.css','.html'].indexOf(extension) > -1 ) {
+        next();
+      } else {
+        res.sendfile('./public/index.html');
+      }
+});
 router.use(express.static(path.resolve(__dirname, 'public')));
 
 process.title = 'CloudBudget-AngularJS';
