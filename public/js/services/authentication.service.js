@@ -17,11 +17,11 @@
         
         function login(username, password ) {
             return $http.post( apiRoutes.login, {username: username, password: password})
-                .then(function(response, status) {
-                    if( status === 200 ) {
+                .then(function(response) {
+                    if( response.status === 200 ) {
                         return {
                             success: true,
-                            user: response
+                            user: response.data
                         };
                     } else {
                         return {
