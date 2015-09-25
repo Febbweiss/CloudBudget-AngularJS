@@ -89,7 +89,8 @@ describe('RegisterController', function() {
             var registerController = createController();
             registerController.user = {
                 username: 'test',
-                password: 's3cr3t'
+                password: 's3cr3t',
+                language: 'en'
             };
             
             registerController.register();
