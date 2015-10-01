@@ -9,4 +9,4 @@ before_script:
   - bower install
 after_success:
   - 'cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js'
-  - 'curl "http://technical.viadeo-playground.com/deploy/update?secret_key=$PASSWORD&site=cloudbudget_angularjs"'
+  #- 'curl "http://technical.viadeo-playground.com/deploy/update?secret_key=$PASSWORD&site=cloudbudget_angularjs"'
