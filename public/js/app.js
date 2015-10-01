@@ -4,7 +4,7 @@
     var HOST = 'http://cloudbudget-febbweiss.c9.io/api';
     
     angular
-        .module('cloudbudget', ['ngRoute', 'routes', 'ngCookies', 'xeditable'])
+        .module('cloudbudget', ['ngRoute', 'ngAnimate', 'routes', 'angular-growl', 'config', 'ngCookies', 'xeditable'])
         .constant('apiRoutes', {
             'host'          : HOST,
             'port'          : "80",

@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css" type="text/css"/>
         <link rel="stylesheet" href="/libs/angular-xeditable/dist/css/xeditable.css" type="text/css" />
+        <link rel="stylesheet" href="/libs/angular-growl-v2/build/angular-growl.min.css" type="text/css" />
     </head>
     <body>
         <div class="container">
@@ -21,8 +22,7 @@
                 </ul>
             </nav>
         </div>
-        
-        <div ng-class="{ 'alert': flash, 'alert-success' : flash.type === 'success', 'alert-danger': flash.type === 'error'}" ng-if="flash" ng-bind="flash.message"></div>
+         <div growl></div>
         <div ng-view></div>
         
         <div class="credits text-center">
@@ -38,9 +38,12 @@
         <script type="text/javascript" src="/libs/angular-route/angular-route.min.js"></script>
         <script type="text/javascript" src="/libs/angular-cookies/angular-cookies.min.js"></script>
         <script type="text/javascript" src="/libs/angular-xeditable/dist/js/xeditable.min.js"></script>
+        <script type="text/javascript" src="/libs/angular-growl-v2/build/angular-growl.min.js"></script>
+        <script type="text/javascript" src="/libs/angular-animate/angular-animate.min.js"></script>
         
         <script type="text/javascript" src="/js/app.js"></script>
         <script type="text/javascript" src="/js/routes.js"></script>
+        <script type="text/javascript" src="/js/config.js"></script>
         <script type="text/javascript" src="/js/services/authentication.service.js"></script>
         <script type="text/javascript" src="/js/services/flash.service.js"></script>
         <script type="text/javascript" src="/js/services/user.service.js"></script>

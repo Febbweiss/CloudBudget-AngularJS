@@ -5,9 +5,9 @@
         .module('cloudbudget')
         .factory('FlashService', FlashService);
         
-    FlashService.$inject = ['$rootScope'];
+    FlashService.$inject = ['$rootScope', 'growl'];
     
-    function FlashService($rootScope) {
+    function FlashService($rootScope, growl) {
         var service = {};
         
         service.success = success;
@@ -35,19 +35,11 @@
         }
         
         function success(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'success',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
+            growl.success(message,{title: 'Success!'});
         }
         
         function error(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'error',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
+            growl.error(message, {title: 'Error!'});
         }
     }
 })();
