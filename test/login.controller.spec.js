@@ -78,7 +78,7 @@ describe('LoginController', function() {
             loginController.login();
             $timeout.flush();
             
-            $location.path().should.be.equal('/');
+            $location.path().should.be.equal('/accounts');
         }));
         
         it('should fail to log', inject(function($controller, $location) {

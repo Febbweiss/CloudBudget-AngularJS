@@ -10,7 +10,8 @@ router.get('*', function(req, res, next) {
   var dotIndex = req.path.lastIndexOf('.'),
       extension = dotIndex === - 1 ? '' : req.path.substr(dotIndex);
       
-      if( ['.js','.css','.html'].indexOf(extension) > -1 ) {
+      if( ['.js','.css','.html', 
+        '.woff', '.woff2', '.ttf', '.svg', '.eot', '.otf'].indexOf(extension) > -1 ) {
         next();
       } else {
         res.sendfile('./public/index.html');

@@ -18,6 +18,7 @@ module.exports = function(config) {
       'public/libs/angular/angular.js',
       'public/libs/angular-route/angular-route.js',
       'public/libs/angular-cookies/angular-cookies.js',
+      'public/libs/angular-xeditable/dist/js/xeditable.min.js',
       'public/libs/angular-mocks/angular-mocks.js',
       'public/js/**/*.js',
       'public/**/*.controller.js',

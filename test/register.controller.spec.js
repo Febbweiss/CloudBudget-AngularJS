@@ -97,7 +97,7 @@ describe('RegisterController', function() {
             $httpBackend.flush();
             $timeout.flush();
             
-            $location.path().should.be.equal('/');
+            $location.path().should.be.equal('/accounts');
         }));
         
         it('should fail to register on bad parameter', inject(function($controller, $httpBackend, $location) {

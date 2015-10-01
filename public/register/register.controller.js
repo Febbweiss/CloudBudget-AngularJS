@@ -20,7 +20,7 @@
                     if( response.success ) {
                         AuthenticationService.setCredentials(response.user);
                         FlashService.success('Registration successful', true);
-                        $location.path('/');
+                        $location.path('/accounts');
                     } else {
                         FlashService.error(response.message);
                         vm.dataLoading = false;

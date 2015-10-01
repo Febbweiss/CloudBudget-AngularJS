@@ -5,7 +5,9 @@
         <base href="/" />
         
         <title>CloudBudget</title>
-        <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css" type="text/css"/>
+        <link rel="stylesheet" href="/libs/angular-xeditable/dist/css/xeditable.css" type="text/css" />
     </head>
     <body>
         <div class="container">
@@ -19,14 +21,9 @@
                 </ul>
             </nav>
         </div>
-        <div class="jumbotron">
-            <div class="container">
-                <div class="col-sm-8 col-sm-offset-2">
-                    <div ng-class="{ 'alert': flash, 'alert-success' : flash.type === 'success', 'alert-danger': flash.type === 'error'}" ng-if="flash" ng-bind="flash.message"></div>
-                    <div ng-view></div>
-                </div>
-            </div>
-        </div>
+        
+        <div ng-class="{ 'alert': flash, 'alert-success' : flash.type === 'success', 'alert-danger': flash.type === 'error'}" ng-if="flash" ng-bind="flash.message"></div>
+        <div ng-view></div>
         
         <div class="credits text-center">
             <p>
@@ -37,18 +34,21 @@
             </p>
         </div>
         
-        <script src="/libs/angular/angular.js" ></script>
-        <script src="/libs/angular-route/angular-route.min.js"></script>
-        <script src="/libs/angular-cookies/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="/libs/angular/angular.js" ></script>
+        <script type="text/javascript" src="/libs/angular-route/angular-route.min.js"></script>
+        <script type="text/javascript" src="/libs/angular-cookies/angular-cookies.min.js"></script>
+        <script type="text/javascript" src="/libs/angular-xeditable/dist/js/xeditable.min.js"></script>
         
-        <script src="/js/app.js"></script>
-        <script src="/js/routes.js"></script>
-        <script src="/js/services/authentication.service.js"></script>
-        <script src="/js/services/flash.service.js"></script>
-        <script src="/js/services/user.service.js"></script>
+        <script type="text/javascript" src="/js/app.js"></script>
+        <script type="text/javascript" src="/js/routes.js"></script>
+        <script type="text/javascript" src="/js/services/authentication.service.js"></script>
+        <script type="text/javascript" src="/js/services/flash.service.js"></script>
+        <script type="text/javascript" src="/js/services/user.service.js"></script>
+        <script type="text/javascript" src="/js/services/accounts.service.js"></script>
         
-        <script src="/home/home.controller.js"></script>
-        <script src="/login/login.controller.js"></script>
-        <script src="/register/register.controller.js"></script>
+        <script type="text/javascript" src="/home/home.controller.js"></script>
+        <script type="text/javascript" src="/login/login.controller.js"></script>
+        <script type="text/javascript" src="/register/register.controller.js"></script>
+        <script type="text/javascript" src="/accounts/accounts.controller.js"></script>
     </body>
 </html>

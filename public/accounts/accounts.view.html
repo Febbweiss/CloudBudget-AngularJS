@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <form name="form" ng-submit="vm.create()" role="form">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <input name="reference" id="reference" class="form-control" placeholder="Reference" ng-model="vm.account.reference" />
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{'has-error': form.name.$dirty && form.name.$error.required}">
+                    <input name="name" id="name" class="form-control" ng-model="vm.account.name" placeholder="name" required/>                                    
+                    <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">name is required</span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid || vm.dataLoading">
+                    <i class="fa fa-fw fa-floppy-o"></i>
+                </button>
+                <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            </div>
+        </form>
+    </div>
+                
+    <div class="row" ng-repeat="account in vm.accounts">
+        <div class="col-sm-4">
+            <span e-form="rowform" e-name="reference" editable-text="account.reference">{{account.reference}}</span>
+        </div>
+        <div class="col-sm-4"><span e-form="rowform" e-name="name" editable-text="account.name" e-required>{{account.name}}</span></div>
+        <div class="col-sm-4">
+            <form editable-form name="rowform" onbeforesave="vm.edit($data, account)" ng-show="rowform.$visible" xclass="form-buttons form-inline" shown="inserted == account">
+                <button type="submit" ng-disabled="rowForm.$invalid || rowform.$waiting" title="Edit" class="btn btn-success">
+                    <i class="fa fa-fw fa-floppy-o"></i>
+                </button>
+                <button type="button" ng-disabled="rowform.$waiting" title="Cancel" ng-click="rowform.$cancel()" class="btn btn-default">
+                    <i class="fa fa-fw fa-ban"></i>
+                </button>
+                <a class="btn btn-danger" title="Delete" ng-disabled="rowForm.$waiting" ng-click="vm.drop(account)">
+                    <i class="fa fa-fw fa-trash"></i>
+                </a>
+            </form>
+            <a class="btn btn-success" ng-click="rowform.$show()" ng-show="!rowform.$visible">
+                <i class="fa fa-fw fa-pencil"></i>
+            </a>
+            <a class="btn btn-primary" ng-click="vm.consult(account)" ng-show="!rowform.$visible">
+                <i class="fa fa-fw fa-eye"></i>
+            </a>
+        </div>
+    </div>
+</div>

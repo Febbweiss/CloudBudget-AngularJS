@@ -45,7 +45,6 @@
             
             $http.defaults.headers.common['Authorization'] = 'JWT ' + user.token;
             $cookieStore.put('globals', $rootScope.globals);
-            console.log( $cookieStore.get('globals'));
         }
         
         function clearCredentials() {
