@@ -45,7 +45,7 @@ describe('AccountsController', function() {
     }));
     
     describe('init()', function() {
-        it('should create successfully', inject(function($controller, $httpBackend) {
+        it('should init successfully', inject(function($httpBackend) {
             $httpBackend.expect('GET', apiRoutes.accounts)
                 .respond([DEFAULT_ACCOUNT]);
     
@@ -56,10 +56,22 @@ describe('AccountsController', function() {
             
             accountsController.accounts.should.be.instanceof(Array).and.have.lengthOf(1);
         }));
+        
+        it('should fail to init', inject(function($httpBackend) {
+            $httpBackend.expect('GET', apiRoutes.accounts)
+                .respond(400);
+    
+                
+            var accountsController = createController();
+            $httpBackend.flush();
+            $timeout.flush();
+            
+            accountsController.accounts.should.be.instanceof(Array).and.have.lengthOf(0);
+        }));
     });
     
     describe('* create()', function() {
-        it('should create successfully', inject(function($controller, $httpBackend) {
+        it('should create successfully', inject(function($httpBackend) {
             $httpBackend.expect('GET', apiRoutes.accounts)
                 .respond([]);
                 
@@ -83,7 +95,7 @@ describe('AccountsController', function() {
             should.exist(account._id);
         }));
         
-        it('should fail to create account', inject(function($controller, $httpBackend) {
+        it('should fail to create account', inject(function($httpBackend) {
             $httpBackend.expect('GET', apiRoutes.accounts)
                 .respond([]);
                 
@@ -105,23 +117,23 @@ describe('AccountsController', function() {
     });
     
     describe('* delete()', function() {
-        it('should delete successfully', inject(function($controller, $httpBackend) {
+        it('should delete successfully', inject(function($httpBackend) {
             $httpBackend.expect('GET', apiRoutes.accounts)
                 .respond([DEFAULT_ACCOUNT]);
                 
-            $httpBackend.expect('DELETE', apiRoutes.accounts + '560aa0e79633cd7c1495ff21')
+            $httpBackend.expect('DELETE', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
                 .respond(204);
 
             
             var accountsController = createController();
-            accountsController.drop({_id: '560aa0e79633cd7c1495ff21'});
+            accountsController.drop({_id: DEFAULT_ACCOUNT._id});
             $httpBackend.flush();
             $timeout.flush();
             
             accountsController.accounts.should.be.instanceof(Array).and.have.lengthOf(0);
         }));
         
-        it('should fail to delete unknown account', inject(function($controller, $httpBackend) {
+        it('should fail to delete unknown account', inject(function($httpBackend) {
             $httpBackend.expect('GET', apiRoutes.accounts)
                 .respond([DEFAULT_ACCOUNT]);
                 
@@ -139,11 +151,11 @@ describe('AccountsController', function() {
     });
     
     describe('* edit()', function() {
-        it('should edit successfully', inject(function($controller, $httpBackend) {
+        it('should edit successfully', inject(function($httpBackend) {
             $httpBackend.expect('GET', apiRoutes.accounts)
                 .respond([DEFAULT_ACCOUNT]);
                 
-            $httpBackend.expect('PUT', apiRoutes.accounts + '560aa0e79633cd7c1495ff21')
+            $httpBackend.expect('PUT', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
                 .respond(200, {
                     "name": "test updated",
                     "reference": "1234567890",
@@ -162,7 +174,7 @@ describe('AccountsController', function() {
             account.name.should.be.equal('test updated');
         }));
         
-        it('should fail to edit unknown account', inject(function($controller, $httpBackend) {
+        it('should fail to edit unknown account', inject(function($httpBackend) {
             $httpBackend.expect('GET', apiRoutes.accounts)
                 .respond([DEFAULT_ACCOUNT]);
                 
@@ -181,4 +193,19 @@ describe('AccountsController', function() {
         }));
     });
     
+    describe('* consult()', function() {
+        it('should redirect to account consultation', inject(function($httpBackend,$rootScope, $location) {
+            $httpBackend.expect('GET', apiRoutes.accounts)
+                .respond([DEFAULT_ACCOUNT]);
+                
+            $rootScope.globals.user = true;
+            
+            var accountsController = createController();
+            accountsController.consult(DEFAULT_ACCOUNT);
+            $httpBackend.flush();
+            $timeout.flush();
+            
+            $location.path().should.be.equal('/account/' + DEFAULT_ACCOUNT._id);
+        }));
+    })
 });
