@@ -343,5 +343,113 @@ describe('AccountController', function() {
           });
        });
     });
+    
+    describe('UI', function() {
+        describe('* update subcategory for main form', function() {
+            it('should return subcategory successfully', inject(function($httpBackend) {
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
+                    .respond(DEFAULT_ACCOUNT);
+        
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
+                    .respond({entry: null, entries:[], balance: 0});
+                    
+                var accountController = createController();
+                $httpBackend.flush();
+                $timeout.flush();
+                
+                accountController.entry = {category: '560a84058812ad8d0ff200f0'};
+                accountController.updateSubCategory();
+                
+                accountController.sub_categories.should.be.instanceof(Array).and.have.lengthOf(3);
+            }));
+            
+            it('should return empty subcategory list successfully', inject(function($httpBackend) {
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
+                    .respond(DEFAULT_ACCOUNT);
+        
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
+                    .respond({entry: null, entries:[], balance: 0});
+                    
+                var accountController = createController();
+                $httpBackend.flush();
+                $timeout.flush();
+                
+                accountController.entry = {category: '560a84058812ad8d0ff200ef'};
+                accountController.updateSubCategory();
+                
+                accountController.sub_categories.should.be.instanceof(Array).and.have.lengthOf(0);
+            }));
+            
+            it('should return empty subcategory list for unknown category', inject(function($httpBackend) {
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
+                    .respond(DEFAULT_ACCOUNT);
+        
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
+                    .respond({entry: null, entries:[], balance: 0});
+                    
+                var accountController = createController();
+                $httpBackend.flush();
+                $timeout.flush();
+                
+                accountController.entry = {category: 'fake_id'};
+                accountController.updateSubCategory();
+                
+                accountController.sub_categories.should.be.instanceof(Array).and.have.lengthOf(0);
+            }));
+        });
+        
+        describe('* update subcategory for inplace editor form', function() {
+            it('should return subcategory successfully', inject(function($httpBackend) {
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
+                    .respond(DEFAULT_ACCOUNT);
+        
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
+                    .respond({entry: null, entries:[], balance: 0});
+                    
+                var accountController = createController();
+                $httpBackend.flush();
+                $timeout.flush();
+                
+                accountController.updateSubCategoryEditForm('560a84058812ad8d0ff200f0');
+                
+                accountController.edit_sub_categories.should.be.instanceof(Array).and.have.lengthOf(3);
+                accountController.disabledSubCategories.should.be.false;
+            }));
+            
+            it('should return empty subcategory list successfully', inject(function($httpBackend) {
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
+                    .respond(DEFAULT_ACCOUNT);
+        
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
+                    .respond({entry: null, entries:[], balance: 0});
+                    
+                var accountController = createController();
+                $httpBackend.flush();
+                $timeout.flush();
+                
+                accountController.updateSubCategoryEditForm('560a84058812ad8d0ff200ef');
+                
+                accountController.edit_sub_categories.should.be.instanceof(Array).and.have.lengthOf(0);
+                accountController.disabledSubCategories.should.be.true;
+            }));
+            
+            it('should return empty subcategory list for unknown category', inject(function($httpBackend) {
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
+                    .respond(DEFAULT_ACCOUNT);
+        
+                $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
+                    .respond({entry: null, entries:[], balance: 0});
+                    
+                var accountController = createController();
+                $httpBackend.flush();
+                $timeout.flush();
+                
+                accountController.updateSubCategoryEditForm('fake_id');
+                
+                accountController.edit_sub_categories.should.be.instanceof(Array).and.have.lengthOf(0);
+                accountController.disabledSubCategories.should.be.true;
+            }));
+        });
+    })
 
 });
