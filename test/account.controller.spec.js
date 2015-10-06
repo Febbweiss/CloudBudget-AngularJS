@@ -5,6 +5,7 @@ describe('AccountController', function() {
         $scope,
         $timeout,
         $httpBackend,
+        $filter,
         AccountService,
         FlashService,
         createController,
@@ -51,7 +52,7 @@ describe('AccountController', function() {
         
     beforeEach(module('cloudbudget'));
     
-    beforeEach(inject(function ( _$rootScope_, _$httpBackend_,  $controller, _$location_, $routeParams, _$timeout_, _AccountService_, _FlashService_, _apiRoutes_) {
+    beforeEach(inject(function ( _$rootScope_, _$httpBackend_,  $controller, _$location_, $routeParams, _$timeout_, _$filter_, _AccountService_, _FlashService_, _apiRoutes_) {
         $location = _$location_;
         $httpBackend = $httpBackend;
         $rootScope = _$rootScope_.$new();
@@ -61,6 +62,7 @@ describe('AccountController', function() {
           $setPristine: function() {}
         };
         $timeout = _$timeout_;
+        $filter = _$filter_;
         AccountService = _AccountService_;
         FlashService = _FlashService_;
         apiRoutes = _apiRoutes_;
@@ -282,6 +284,64 @@ describe('AccountController', function() {
             entry.sub_category.should.be.equal(DEFAULT_ENTRY.sub_category);
             entry.type.should.be.equal(DEFAULT_ENTRY.type);
         }));
+    });
+    
+    describe('Filters', function() {
+       describe('* CategoryFilter', function() {
+          it('should return empty without inputs', function() {
+                var result = $filter('category')(undefined, DEFAULT_ACCOUNT.categories);
+                
+                result.should.be.equal('');
+          });
+          
+          it('should return empty for invalid input', function() {
+                var result = $filter('category')('fake_id', DEFAULT_ACCOUNT.categories);
+                
+                result.should.be.equal('');
+          });
+          
+          it('should return label successfully', function() {
+                var result = $filter('category')('560a84058812ad8d0ff200f0', DEFAULT_ACCOUNT.categories);
+                result.should.be.equal('Automobile Expenses');
+          });
+       });
+       
+       describe('* SubcategoryFilter', function() {
+          it('should return empty without input', function() {
+                var result = $filter('sub_category')(undefined, undefined, DEFAULT_ACCOUNT.categories);
+                
+                result.should.be.equal('');
+          });
+          
+          it('should return empty without category_id', function() {
+                var result = $filter('sub_category')('560a84058812ad8d0ff200f3', undefined, DEFAULT_ACCOUNT.categories);
+                
+                result.should.be.equal('');
+          });
+          
+          it('should return empty without sub_category_id', function() {
+                var result = $filter('sub_category')(undefined, '560a84058812ad8d0ff200f0', DEFAULT_ACCOUNT.categories);
+                
+                result.should.be.equal('');
+          });
+          
+          it('should return empty with invalid category_id', function() {
+                var result = $filter('sub_category')('560a84058812ad8d0ff200f3', 'fake_id', DEFAULT_ACCOUNT.categories);
+                
+                result.should.be.equal('');
+          });
+          
+          it('should return empty with invalid sub_category_id', function() {
+                var result = $filter('sub_category')('fake_id', '560a84058812ad8d0ff200f0', DEFAULT_ACCOUNT.categories);
+                
+                result.should.be.equal('');
+          });
+          
+          it('should return label successfully', function() {
+                var result = $filter('sub_category')('560a84058812ad8d0ff200f3', '560a84058812ad8d0ff200f0', DEFAULT_ACCOUNT.categories);
+                result.should.be.equal('Car Payment');
+          });
+       });
     });
 
 });
