@@ -7,7 +7,7 @@
         .module('cloudbudget', ['ngRoute', 'ngAnimate', 'routes', 'angular-growl', 'config', 'ngCookies', 'xeditable'])
         .constant('apiRoutes', {
             'host'          : HOST,
-            'port'          : "80",
+            'port'          : '80',
             'login'         : HOST + '/users/login',
             'register'      : HOST + '/users',
             'unregister'    : HOST + '/users/',

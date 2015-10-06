@@ -34,6 +34,12 @@
                 controllerAs: 'vm'
             })
             
+            .when('/account/:account_id', {
+                controller: 'AccountController',
+                templateUrl: 'account/account.view.html',
+                controllerAs: 'vm'
+            })
+            
             .otherwise({redirectTo: '/login'});
             
         $locationProvider.html5Mode(true);
