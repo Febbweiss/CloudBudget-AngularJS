@@ -1,5 +1,5 @@
 <div class="container-fluid div-striped">
-    <div class="row">
+    <div class="row vcenter">
         <form name="form" ng-submit="vm.create()" role="form">
             <div class="col-sm-2">
                 <div class="form-group" ng-class="{'has-error': form.date.$dirty && form.date.$error.required}">
@@ -37,14 +37,14 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid || vm.dataLoading">
+                <button type="submit" class="btn btn-primary btn-xs" ng-disabled="form.$invalid || vm.dataLoading">
                     <i class="fa fa-fw fa-floppy-o"></i>
                 </button>
                 <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             </div>
         </form>
     </div>
-    <div class="row" ng-repeat="entry in vm.entries">
+    <div class="row vcenter" ng-repeat="entry in vm.entries">
         <div class="col-sm-2 small">
             <span   e-form="editEntryForm" e-name="date" 
                     editable-date="entry.date"
@@ -56,8 +56,11 @@
                     editable-select="entry.category" 
                     e-ng-change="vm.updateSubCategoryEditForm($data)" 
                     e-ng-options="category._id as category.label for category in vm.categories">{{entry.category | category:vm.categories}}</span>
+            <span class="visible-sm">
+                {{entry.sub_category | sub_category:entry.category:vm.categories}}
+            </span>
         </div>
-        <div class="col-sm-2 small">
+        <div class="col-sm-2 hidden-sm small">
             <span   e-form="editEntryForm" 
                     e-name="sub_category" 
                     editable-select="entry.sub_category" 
@@ -78,17 +81,17 @@
         </div>
         <div class="col-sm-2">
             <form editable-form name="editEntryForm" onbeforesave="vm.edit($data, entry)" ng-show="editEntryForm.$visible" shown="inserted == entry">
-                <button type="submit" ng-disabled="editEntryForm.$invalid || editEntryForm.$waiting" title="Edit" class="btn btn-success">
+                <button type="submit" ng-disabled="editEntryForm.$invalid || editEntryForm.$waiting" title="Edit" class="btn btn-success btn-xs">
                     <i class="fa fa-fw fa-floppy-o"></i>
                 </button>
-                <button type="button" ng-disabled="editEntryForm.$waiting" title="Cancel" ng-click="editEntryForm.$cancel()" class="btn btn-default">
+                <button type="button" ng-disabled="editEntryForm.$waiting" title="Cancel" ng-click="editEntryForm.$cancel()" class="btn btn-default btn-xs">
                     <i class="fa fa-fw fa-ban"></i>
                 </button>
-                <a class="btn btn-danger" title="Delete" ng-disabled="editEntryForm.$waiting" ng-click="vm.drop(entry)">
+                <a class="btn btn-danger btn-xs" title="Delete" ng-disabled="editEntryForm.$waiting" ng-click="vm.drop(entry)">
                     <i class="fa fa-fw fa-trash"></i>
                 </a>
             </form>
-            <a class="btn btn-success" ng-click="editEntryForm.$show()" ng-show="!editEntryForm.$visible">
+            <a class="btn btn-success btn-xs" ng-click="editEntryForm.$show()" ng-show="!editEntryForm.$visible">
                 <i class="fa fa-fw fa-pencil"></i>
             </a>
         </div>

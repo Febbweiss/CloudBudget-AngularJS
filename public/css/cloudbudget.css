@@ -4,3 +4,14 @@ div.div-striped div.row:nth-of-type(odd) {
 div.div-striped div.row:nth-of-type(even) {
     background: #FFFFFF;
 }
+
+.vcenter div {
+    height: 3em;
+    top: 1em;
+}
+
+.vcenter div .btn,
+.vcenter div .form-control {
+    position: relative;
+    top: -0.5em;
+}
