@@ -22,7 +22,8 @@
                 </div>
                 
                 <ul class="nav navbar-nav">
-                    <li><a href="/login">Login</a></li>                    
+                    <li><a href="/login" ng-hide="{{globals.user}}">Login</a></li>                    
+                    <li><a href="/logout" ng-show="{{globals.user}}">Logout</a></li>                    
                 </ul>
             </nav>
         </div>

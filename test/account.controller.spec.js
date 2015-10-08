@@ -94,6 +94,7 @@ describe('AccountController', function() {
             should.exist(accountController.account);
             accountController.account._id.should.be.equal(DEFAULT_ACCOUNT._id);
             accountController.entries.should.be.instanceof(Array).and.have.lengthOf(1);
+            accountController.balance.should.be.equal(100);
         }));
         
         it('should fail to init', inject(function($httpBackend) {
@@ -109,6 +110,7 @@ describe('AccountController', function() {
             
             should.not.exist(accountController.account);
             accountController.entries.should.be.instanceof(Array).and.have.lengthOf(0);
+            should.not.exist(accountController.balance);
         }));
     });
     
@@ -139,6 +141,7 @@ describe('AccountController', function() {
             entry.sub_category.should.be.equal(DEFAULT_ENTRY.sub_category);
             entry.type.should.be.equal(DEFAULT_ENTRY.type);
             should.exist(entry._id);
+            accountController.balance.should.be.equal(100);
         }));
         
         it('should fail to create entry', inject(function($httpBackend) {
@@ -165,6 +168,7 @@ describe('AccountController', function() {
             $timeout.flush();
             
             accountController.entries.should.be.instanceof(Array).and.have.lengthOf(0);
+            accountController.balance.should.be.equal(0);
         }));
     });
     
@@ -189,6 +193,7 @@ describe('AccountController', function() {
             $timeout.flush();
             
             accountController.entries.should.be.instanceof(Array).and.have.lengthOf(0);
+            accountController.balance.should.be.equal(0);
         }));
         
         it('should fail to delete unknown entry', inject(function($httpBackend) {
@@ -211,6 +216,7 @@ describe('AccountController', function() {
             
             accountController.entries.should.be.instanceof(Array).and.have.lengthOf(1);
             accountController.entries[0]._id.should.be.equal(DEFAULT_ENTRY._id);
+            accountController.balance.should.be.equal(100);
         }));
     });
 
@@ -248,6 +254,7 @@ describe('AccountController', function() {
             entry.category.should.be.equal(DEFAULT_ENTRY.category);
             entry.sub_category.should.be.equal(DEFAULT_ENTRY.sub_category);
             entry.type.should.be.equal(DEFAULT_ENTRY.type);
+            accountController.balance.should.be.equal(120);
         }));
         
         it('should fail to edit unknown entry', inject(function($httpBackend) {
@@ -283,6 +290,7 @@ describe('AccountController', function() {
             entry.category.should.be.equal(DEFAULT_ENTRY.category);
             entry.sub_category.should.be.equal(DEFAULT_ENTRY.sub_category);
             entry.type.should.be.equal(DEFAULT_ENTRY.type);
+            accountController.balance.should.be.equal(100);
         }));
     });
     

@@ -1,3 +1,18 @@
+<div class="page-header">
+    <div class="pull-left">
+        <h1>
+            {{vm.account.name}} 
+            <small ng-show="vm.reference"> - {{vm.account.reference}}</small>
+        </h1>
+    </div>
+    <div class="pull-right">
+        <h3 ng-class="{'text-danger': vm.balance <= 0}">
+            {{vm.balance | currency }}
+            <i class="fa fa-fw fa-balance-scale"></i> 
+        </h3>
+    </div>
+    <div class="clearfix"></div>
+</div>
 <div class="container-fluid div-striped">
     <div class="row vcenter">
         <form name="form" ng-submit="vm.create()" role="form">
@@ -17,7 +32,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 hidden-sm">
                 <div class="form-group">
                     <select name="sub_category" class="form-control input-sm" ng-hide="!vm.entry.category || vm.sub_categories.length === 0" ng-model="vm.entry.sub_category">
                         <option value=""></option>

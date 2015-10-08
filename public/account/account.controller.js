@@ -65,6 +65,7 @@
 
         vm.dataLoading = false;
         vm.entries = [];
+        vm.balance = undefined;
         vm.categories = [];
         vm.sub_categories = [];
         vm.account = undefined;
@@ -92,6 +93,7 @@
             AccountService.list($routeParams.account_id)
                 .then(function(response) {
                    if( response.success ) {
+                       vm.balance = response.data.balance;
                        vm.entries = response.data.entries;
                    } else {
                        FlashService.error(response.message);
@@ -104,6 +106,7 @@
             AccountService.create(vm.account, vm.entry)
                 .then( function(response) {
                     if( response.success) {
+                        vm.balance = response.data.balance;
                         vm.entries = response.data.entries;
                     } else {
                         FlashService.error(response.message);
@@ -120,7 +123,8 @@
             AccountService.drop(vm.account, entry)
                 .then(function(response) {
                     if( response.success ) {
-                       vm.entries = response.data.entries;
+                        vm.balance = response.data.balance;
+                        vm.entries = response.data.entries;
                     } else {
                         FlashService.error( response.message );
                     }
@@ -134,6 +138,7 @@
                 .then( function(response) {
                     vm.dataLoading = false;
                     if( response.success ) {
+                        vm.balance = response.data.balance;
                         var index = vm.entries.map(function (item) {
                                 return item._id;
                             }).indexOf(origin._id);
