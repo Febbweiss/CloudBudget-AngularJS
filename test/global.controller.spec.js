@@ -22,6 +22,9 @@ describe('GlobalController', function() {
     beforeEach(inject(function ( _$rootScope_, $controller, _$location_) {
         $location = _$location_;
         $rootScope = _$rootScope_;
+        $rootScope.globals = {
+            user: true
+        };
         $scope = _$rootScope_.$new();
         
         createController = function() {
@@ -38,6 +41,17 @@ describe('GlobalController', function() {
         globalController.current_account = '560a84058812ad8d0ff200ee';
         globalController.change_account();
         $location.path().should.be.equal('/account/560a84058812ad8d0ff200ee')
+    }));
+    
+    it('should change successfully', inject(function($location, $rootScope) {
+        var globalController = createController();
+        globalController.current_account = '560a84058812ad8d0ff200ee';
+        globalController.change_account();
+        $rootScope.current_account = '560a7ad08812ad8d0ff20068';
+        $rootScope.$digest();
+        globalController.change_account();
+        $rootScope.$digest();
+        $location.path().should.be.equal('/account/560a7ad08812ad8d0ff20068')
     }));
 
 });

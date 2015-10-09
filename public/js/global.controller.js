@@ -5,19 +5,17 @@
         .module('cloudbudget')
         .controller('GlobalController', GlobalController);
         
-    GlobalController.$inject = ['$scope', '$rootScope', '$location'];
+    GlobalController.$inject = ['$location', '$rootScope'];
     
-    function GlobalController($scope, $rootScope, $location) {
+    function GlobalController($location, $rootScope) {
         var vm = this;
         
         vm.change_account = change_account;
-        vm.current_account = undefined;
+        vm.current_account = $rootScope.current_account;;
         
-        $scope.$watch(function() {
-            return $rootScope.current_account;
-        }, function() {
+        $rootScope.$watch('current_account', function() {
             vm.current_account = $rootScope.current_account;
-        }, true);
+        });
         
         function change_account() {
             $location.path('/account/' + vm.current_account);
