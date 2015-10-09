@@ -14,20 +14,29 @@
         
         <link rel="stylesheet" href="/css/cloudbudget.css" type="text/css" />
     </head>
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-inverse">
+    <body ng-controller="GlobalController as globalController">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">CloudBudget</a>
                 </div>
                 
-                <ul class="nav navbar-nav">
-                    <li><a href="/login" ng-hide="{{globals.user}}">Login</a></li>                    
-                    <li><a href="/logout" ng-show="{{globals.user}}">Logout</a></li>                    
+                <form class="nav navbar-left navbar-form">
+                    <label for=""current_account>Account</label>
+                    <select name="current_account" id="current_account" class="form-control input-sm" ng-model="globalController.current_account" ng-change="globalController.change_account($data)">
+                        <option value="{{account._id}}" ng-repeat="account in accounts" >{{account.name}}</option>
+                    </select>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/login" ng-hide="{{globals.user}}">Login</a>
+                        <a href="/logout" ng-show="{{globals.user}}">Logout</a>
+                    </li>                    
                 </ul>
-            </nav>
-        </div>
-         <div growl></div>
+            </div>
+        </nav>
+        
+        <div growl></div>
         <div ng-view></div>
         
         <div class="credits text-center">
@@ -55,6 +64,7 @@
         <script type="text/javascript" src="/js/services/accounts.service.js"></script>
         <script type="text/javascript" src="/js/services/account.service.js"></script>
         
+        <script type="text/javascript" src="/js/global.controller.js"></script>
         <script type="text/javascript" src="/home/home.controller.js"></script>
         <script type="text/javascript" src="/login/login.controller.js"></script>
         <script type="text/javascript" src="/register/register.controller.js"></script>

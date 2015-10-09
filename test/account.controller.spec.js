@@ -48,14 +48,26 @@ describe('AccountController', function() {
             "type": "DEPOSIT",
             "category": "560a84058812ad8d0ff200f0",
             "sub_category": "560a84058812ad8d0ff200f3"
-        };
+        },
+        DEFAULT_ACCOUNTS = [
+            {
+                "_id": "560a84058812ad8d0ff200ee",
+                "name": "foo",
+                "reference": "baz",
+                "user_id": "55b78934d2a706265ea28e9c"
+            }, {
+                "_id": "560a7ad08812ad8d0ff20068",
+                "name": "bar",
+                "user_id": "55b78934d2a706265ea28e9c"
+            }
+        ];
         
     beforeEach(module('cloudbudget'));
     
-    beforeEach(inject(function ( _$rootScope_, _$httpBackend_,  $controller, _$location_, $routeParams, _$timeout_, _$filter_, _AccountService_, _FlashService_, _apiRoutes_) {
+    beforeEach(inject(function ( _$rootScope_, _$httpBackend_,  $controller, _$location_, _$timeout_, _$filter_, _AccountService_, _FlashService_, _apiRoutes_) {
         $location = _$location_;
-        $httpBackend = $httpBackend;
-        $rootScope = _$rootScope_.$new();
+        $httpBackend = _$httpBackend_;
+        $rootScope = _$rootScope_;
         $scope = _$rootScope_.$new();
         $scope.form = {
           $valid: true,
@@ -74,18 +86,21 @@ describe('AccountController', function() {
                 '$rootScope': $rootScope,
                 '$routeParams': {account_id: DEFAULT_ACCOUNT._id},
                 FlashService: _FlashService_,
-                AccountService: _AccountService_,
+                AccountService: _AccountService_
             });
         };
     }));
     
     describe('init()', function() {
-        it('should init successfully', inject(function($httpBackend) {
+        it('should init successfully', inject(function($httpBackend, $rootScope) {
             $httpBackend.expect('GET', apiRoutes.accounts +  DEFAULT_ACCOUNT._id)
                 .respond(DEFAULT_ACCOUNT);
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                 .respond({entry: null, entries:[DEFAULT_ENTRY], balance: 100});
+                
+            $httpBackend.expect('GET', apiRoutes.accounts )
+                .respond(DEFAULT_ACCOUNTS);
             
             var accountController = createController();
             $httpBackend.flush();
@@ -95,13 +110,17 @@ describe('AccountController', function() {
             accountController.account._id.should.be.equal(DEFAULT_ACCOUNT._id);
             accountController.entries.should.be.instanceof(Array).and.have.lengthOf(1);
             accountController.balance.should.be.equal(100);
+            $rootScope.accounts.should.be.instanceof(Array).and.have.lengthOf(2);
         }));
         
-        it('should fail to init', inject(function($httpBackend) {
+        it('should fail to init', inject(function($httpBackend, $rootScope) {
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id)
                 .respond(400);
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
+                .respond(400);
+                
+            $httpBackend.expect('GET', apiRoutes.accounts )
                 .respond(400);
                 
             var accountController = createController();
@@ -111,6 +130,7 @@ describe('AccountController', function() {
             should.not.exist(accountController.account);
             accountController.entries.should.be.instanceof(Array).and.have.lengthOf(0);
             should.not.exist(accountController.balance);
+            should.not.exist($rootScope.accounts);
         }));
     });
     
@@ -121,6 +141,9 @@ describe('AccountController', function() {
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                 .respond({entry: null, entries:[], balance: 0});
+                
+            $httpBackend.expect('GET', apiRoutes.accounts )
+                .respond(DEFAULT_ACCOUNTS);
                 
             var accountController = createController();
             $httpBackend.flush();
@@ -150,6 +173,9 @@ describe('AccountController', function() {
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                 .respond({entry: null, entries:[], balance: 0});
+            
+            $httpBackend.expect('GET', apiRoutes.accounts )
+                .respond(DEFAULT_ACCOUNTS);
                 
             var accountController = createController();
             $httpBackend.flush();
@@ -179,6 +205,9 @@ describe('AccountController', function() {
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                 .respond({entry: null, entries:[DEFAULT_ENTRY], balance: 100});
+            
+            $httpBackend.expect('GET', apiRoutes.accounts )
+                .respond(DEFAULT_ACCOUNTS);
                 
             var accountController = createController();
             $httpBackend.flush();
@@ -202,6 +231,9 @@ describe('AccountController', function() {
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                 .respond({entry: null, entries:[DEFAULT_ACCOUNT], balance: 100});
+                
+            $httpBackend.expect('GET', apiRoutes.accounts )
+                .respond(DEFAULT_ACCOUNTS);
                 
             var accountController = createController();
             $httpBackend.flush();
@@ -227,6 +259,9 @@ describe('AccountController', function() {
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                 .respond({entry: null, entries:[DEFAULT_ENTRY], balance: 100});
+                
+            $httpBackend.expect('GET', apiRoutes.accounts )
+                .respond(DEFAULT_ACCOUNTS);
                 
             var accountController = createController();
             $httpBackend.flush();
@@ -263,6 +298,9 @@ describe('AccountController', function() {
     
             $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                 .respond({entry: null, entries:[DEFAULT_ENTRY], balance: 100});
+                
+            $httpBackend.expect('GET', apiRoutes.accounts )
+                .respond(DEFAULT_ACCOUNTS);
                 
             var accountController = createController();
             $httpBackend.flush();
@@ -361,6 +399,9 @@ describe('AccountController', function() {
                 $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                     .respond({entry: null, entries:[], balance: 0});
                     
+                $httpBackend.expect('GET', apiRoutes.accounts )
+                    .respond(DEFAULT_ACCOUNTS);
+                    
                 var accountController = createController();
                 $httpBackend.flush();
                 $timeout.flush();
@@ -378,6 +419,9 @@ describe('AccountController', function() {
                 $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                     .respond({entry: null, entries:[], balance: 0});
                     
+                $httpBackend.expect('GET', apiRoutes.accounts )
+                    .respond(DEFAULT_ACCOUNTS);
+                    
                 var accountController = createController();
                 $httpBackend.flush();
                 $timeout.flush();
@@ -394,6 +438,9 @@ describe('AccountController', function() {
         
                 $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                     .respond({entry: null, entries:[], balance: 0});
+                    
+                $httpBackend.expect('GET', apiRoutes.accounts )
+                    .respond(DEFAULT_ACCOUNTS);
                     
                 var accountController = createController();
                 $httpBackend.flush();
@@ -414,6 +461,9 @@ describe('AccountController', function() {
                 $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                     .respond({entry: null, entries:[], balance: 0});
                     
+                $httpBackend.expect('GET', apiRoutes.accounts )
+                    .respond(DEFAULT_ACCOUNTS);
+                    
                 var accountController = createController();
                 $httpBackend.flush();
                 $timeout.flush();
@@ -431,6 +481,9 @@ describe('AccountController', function() {
                 $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                     .respond({entry: null, entries:[], balance: 0});
                     
+                $httpBackend.expect('GET', apiRoutes.accounts )
+                    .respond(DEFAULT_ACCOUNTS);
+                    
                 var accountController = createController();
                 $httpBackend.flush();
                 $timeout.flush();
@@ -447,6 +500,9 @@ describe('AccountController', function() {
         
                 $httpBackend.expect('GET', apiRoutes.accounts + DEFAULT_ACCOUNT._id + '/entries')
                     .respond({entry: null, entries:[], balance: 0});
+                    
+                $httpBackend.expect('GET', apiRoutes.accounts )
+                    .respond(DEFAULT_ACCOUNTS);
                     
                 var accountController = createController();
                 $httpBackend.flush();

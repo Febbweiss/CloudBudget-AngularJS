@@ -12,7 +12,7 @@
               if( !input ) {
                   return '';
               }
-            var category = categories.filter(function(elt, idx) {
+            var category = categories.filter(function(elt) {
                     return elt._id === input;
                 });
             if( category.length > 0 ) {
@@ -28,7 +28,7 @@
                 return '';
             }
             
-            var category = categories.filter(function(elt, idx) {
+            var category = categories.filter(function(elt) {
                 return elt._id === category_id;
             })[0];
             
@@ -36,7 +36,7 @@
                 return ''; 
             }
 
-            var res = category.sub_categories.filter( function(elt, idx) {
+            var res = category.sub_categories.filter( function(elt) {
                             return elt._id === input;
                         });        
             if( res.length === 1 ) {
@@ -47,9 +47,9 @@
           };
     }
         
-    AccountController.$inject = ['$scope', '$location', '$routeParams', 'FlashService', 'AccountService'];
+    AccountController.$inject = ['$scope', '$rootScope', '$routeParams', 'FlashService', 'AccountsService', 'AccountService'];
     
-    function AccountController($scope, $location, $routeParams, FlashService, AccountService) {
+    function AccountController($scope, $rootScope, $routeParams, FlashService, AccountsService, AccountService) {
         var vm = this;
         
         $scope.calendar = {
@@ -62,13 +62,14 @@
                 $scope.calendar.opened[which] = true;
             } 
         };
-
+        
         vm.dataLoading = false;
+        vm.accounts = undefined;
+        vm.account = undefined;
         vm.entries = [];
         vm.balance = undefined;
         vm.categories = [];
         vm.sub_categories = [];
-        vm.account = undefined;
         vm.create = create;
         vm.drop = drop;
         vm.edit = edit;
@@ -76,6 +77,8 @@
         vm.updateSubCategoryEditForm = updateSubCategoryEditForm;
         vm.disabledSubCategories = false;
         vm.edit_sub_categories = [];
+        
+        $rootScope.current_account = $routeParams.account_id;
         
         (function init() {
             vm.dataLoading = true;
@@ -98,6 +101,14 @@
                    } else {
                        FlashService.error(response.message);
                    }
+                });
+            AccountsService.list()
+                .then(function(response) {
+                    if( response.success ) {
+                        $rootScope.accounts = response.accounts
+                    } else {
+                        FlashService.error(response.message);
+                    }
                 });
         })();
         

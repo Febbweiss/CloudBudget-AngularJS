@@ -5,9 +5,9 @@
         .module('cloudbudget')
         .controller('AccountsController', AccountsController);
         
-    AccountsController.$inject = ['$scope', '$location', '$rootScope', 'FlashService', 'AccountsService'];
+    AccountsController.$inject = ['$scope', '$location', 'FlashService', 'AccountsService'];
     
-    function AccountsController($scope, $location, $rootScope, FlashService, AccountsService) {
+    function AccountsController($scope, $location, FlashService, AccountsService) {
         var vm = this;
         
         vm.dataLoading = false;

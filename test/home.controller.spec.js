@@ -14,7 +14,7 @@ describe('HomeController', function() {
             var homeController = $controller('HomeController', {
                 '$rootScope': rootScope
             });
-            
+
             homeController.firstname = 'George';
             homeController.lastname = 'Harrison';
             homeController.getFullname().should.be.equal('George Harrison');
