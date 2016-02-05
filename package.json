@@ -32,6 +32,7 @@
     "sinon": "~1.15.4"
   },
   "scripts": {
+    "postinstall": "bower cache clean && bower install",
     "test-local": "karma start karma.conf.js --browsers PhantomJS",
     "test": "./node_modules/karma/bin/karma start karma.conf.js --browsers PhantomJS",
     "start": "node server.js",
