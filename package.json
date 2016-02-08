@@ -32,7 +32,7 @@
     "sinon": "~1.15.4"
   },
   "scripts": {
-    "postinstall": "./node_modules/.bin/bower install cache clean && ./node_modules/.bin/bower install",
+    "postinstall": "./node_modules/.bin/bower --allow-root cache clean && ./node_modules/.bin/bower --allow-root install",
     "test": "./node_modules/karma/bin/karma start karma.conf.js --browsers PhantomJS",
     "start": "node server.js",
     "stop": "pkill -SIGINT CloudBudget-AngularJS"
